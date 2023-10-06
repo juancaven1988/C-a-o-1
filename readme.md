@@ -89,7 +89,7 @@ Descripción:  Este programa solicita al usuario que ingrese una contraseña y v
 
 ## Agradecimientos
 
-Agradezco sinceramente a todos aquellos que se tomen el tiempo para revisar y explorar estos ejercicios. Su interés y atención son un estímulo para seguir aprendiendo y mejorando mis habilidades de programación.
+Agradezco sinceramente que te tomaras el tiempo para revisar y explorar estos ejercicios. Tu interés y atención son un estímulo para seguir aprendiendo y mejorando mis habilidades de programación.
 
 ## Conclusiones
 
