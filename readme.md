@@ -1,6 +1,6 @@
 # Ejercicios de Programación en C/C++ año 1
 
-Este repositorio contiene una variedad de proyectos y ejercicios que desarrollé mientras cursaba mi primer año de programación en la facultad. Estos proyectos están diseñados para ayudar en el aprendizaje y práctica de programación en C/C++.
+Este repositorio contiene una variedad de proyectos y ejercicios que desarrollé mientras cursaba mi primer semestre de programación en la facultad. Estos proyectos están diseñados para ayudar en el aprendizaje y práctica de programación en C/C++.
 
 ## Proyectos
 
