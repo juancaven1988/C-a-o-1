@@ -1,0 +1,220 @@
+#include <stdio.h>
+#include <windows.h>
+#include <stdlib.h>
+#include <conio.h>
+
+void gotoxy (int x, int y){
+
+HANDLE hcons;
+
+hcons = GetStdHandle(STD_OUTPUT_HANDLE);
+COORD dwcur;
+
+dwcur.X = x;
+dwcur.Y = y;
+
+SetConsoleCursorPosition(hcons, dwcur);
+}
+void ocultar_cursor (){
+HANDLE hcons;
+hcons = GetStdHandle(STD_OUTPUT_HANDLE);
+
+CONSOLE_CURSOR_INFO dwnot;
+
+dwnot.bVisible = false;
+dwnot.dwSize = 5;
+
+SetConsoleCursorInfo(hcons, &dwnot);
+
+}
+
+void dibujar_cancha(){
+
+for ( int i = 3; i < 28; i++){
+    gotoxy(10, i); printf("%c", 219);
+    gotoxy(110, i); printf("%c", 219);
+}
+
+for ( int i = 10; i < 111; i++){
+    gotoxy(i, 2); printf("%c", 220);
+    gotoxy(i, 28); printf("%c", 223);
+}
+
+
+
+}
+
+class PELOTA {
+
+int x, y;
+
+
+public:
+    PELOTA (int _x, int _y ): y(_y), x(_x){}
+    void mover_izq_arr();
+    void mover_izq_abj();
+    void mover_der_arr();
+    void mover_der_abj();
+    void dibujar();
+    void borrar();
+    int X (){return x;}
+    int Y (){return y;}
+    void reinicio ();
+
+
+};
+void PELOTA::dibujar(){
+gotoxy(x,y); printf("%c", 169);
+
+}
+void PELOTA::borrar(){
+gotoxy(x,y);printf(" ");
+}
+void PELOTA::mover_izq_arr(){
+
+gotoxy(x,y); borrar();
+--x;
+y--;
+dibujar();
+
+}
+void PELOTA::mover_izq_abj(){
+gotoxy(x,y); borrar();
+--x;
+y++;
+dibujar();
+
+}
+void PELOTA::mover_der_abj(){
+gotoxy(x,y); borrar();
+++x;
+y++;
+dibujar();
+}
+void PELOTA::mover_der_arr(){
+gotoxy(x,y); borrar();
+++x;
+y--;
+dibujar();
+}
+
+void PELOTA::reinicio(){
+gotoxy(x,y); printf(" ");
+gotoxy(rand()%5+ 20, rand()%29);dibujar();}
+
+class PLAYER1 {
+ int x, y, puntaje;
+
+ public:
+     PLAYER1 (int _x,int _y, int _puntaje): x (_x), y (_y), puntaje (_puntaje){}
+     void dibujar();
+     void mover ();
+     void anotacion(){puntaje++;}
+     int Marcador (){return puntaje;}
+     int X(){return x;}
+     int Y(){return y;}
+
+};
+
+void PLAYER1::dibujar(){
+
+gotoxy(x,y);
+for (int i = 0; i < 5; i++){
+gotoxy(x, y+i);
+printf("%c",219);}
+
+}
+
+
+
+void PLAYER1::mover(){
+
+if (kbhit()){
+    gotoxy(x,y);printf(" ");
+    gotoxy(x,y+4);printf(" ");
+    char tecla;
+    tecla = getch();
+    if (tecla == 'w' && y > 4)y--;
+    if (tecla == 's' && y < 22)y++;
+    dibujar();}
+
+
+}
+
+int main()
+{
+ocultar_cursor();
+
+
+PELOTA pelota1(20, 10);
+dibujar_cancha();
+PLAYER1 paleta1(13,12,0);
+
+bool game_over =false;
+int mover_der = 1, mover_izq = 1, velocidad = 144;
+paleta1.dibujar();
+
+while (!game_over){
+
+    pelota1.dibujar();
+
+
+          while (pelota1.X() < 109 ){
+                if ( mover_izq == 2){
+            while (pelota1.X() < 109 && pelota1.Y() < 27){
+                pelota1.mover_der_abj();
+                Sleep(velocidad);
+                mover_der = 1;
+                paleta1.mover();}
+            while (pelota1.X() < 109 && pelota1.Y() > 4){
+                pelota1.mover_der_arr();
+                Sleep(velocidad);
+                mover_der = 2;
+                paleta1.mover();
+                }}
+                if ( mover_izq == 1){
+            while (pelota1.X() < 109 && pelota1.Y() > 4){
+                pelota1.mover_der_arr();
+                Sleep(velocidad);
+                mover_der = 2;paleta1.mover();
+                }
+            while (pelota1.X() < 109 && pelota1.Y() < 27){
+                pelota1.mover_der_abj();
+                Sleep(velocidad);
+                mover_der = 1;paleta1.mover();}
+            }
+            }
+
+          while (pelota1.X() > 11 ){
+                if ( mover_der == 2){
+            while (pelota1.X() > 11 && pelota1.Y() > 4){
+                pelota1.mover_izq_arr();
+                Sleep(velocidad);
+                mover_izq = 1;paleta1.mover();}
+            while (pelota1.X() > 11 && pelota1.Y() < 27){
+                pelota1.mover_izq_abj();
+                Sleep(velocidad);
+                mover_izq = 2;paleta1.mover();}}
+                if (mover_der == 1){
+            while (pelota1.X() > 11 && pelota1.Y() < 27){
+                pelota1.mover_izq_abj();
+                Sleep(velocidad);
+                mover_izq = 2;paleta1.mover();}
+            while (pelota1.X() > 11 && pelota1.Y() > 4){
+                pelota1.mover_izq_arr();
+                Sleep(velocidad);
+                mover_izq = 1;paleta1.mover();}
+            }
+             }
+
+
+
+
+
+
+}
+
+
+
+
+}
